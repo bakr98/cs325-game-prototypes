@@ -15,7 +15,7 @@ function make_main_game_state( game )
 
     }
     
-    var bouncy;
+    var player;
     var Star;
     var group;
     var bhenemy1;
@@ -41,7 +41,7 @@ function make_main_game_state( game )
         music = game.add.audio('bgmusic');
         music.loopFull();
         
-        bouncy = game.add.sprite(game.world.centerX, game.world.centerY, 'blackhole' );
+        player = game.add.sprite(game.world.centerX, game.world.centerY, 'blackhole' );
         group = game.add.group();
         for (var i = 0; i < 40; i++)
         {
@@ -60,15 +60,15 @@ function make_main_game_state( game )
                 game.physics.enable( bhenemy1, Phaser.Physics.ARCADE );
         }
         
-        bouncy.scale.setTo(1, 1);
-        bouncy.anchor.setTo( 0.5, 0.5 );
+        player.scale.setTo(1, 1);
+        player.anchor.setTo( 0.5, 0.5 );
         
         
         // Turn on the arcade physics engine for this sprite.
-        game.physics.enable( bouncy, Phaser.Physics.ARCADE );
+        game.physics.enable( player, Phaser.Physics.ARCADE );
         // Make it bounce off of the world bounds.
-        game.world.wrap(bouncy.body); //Wraps everything inside of the bounds
-        bouncy.body.collideWorldBounds = false;
+        game.world.wrap(player.body); //Wraps everything inside of the bounds
+        player.body.collideWorldBounds = false;
         
         // Add some text using a CSS style.
         // Center it in X, and position its top 15 pixels from the top of the world.
@@ -82,14 +82,14 @@ function make_main_game_state( game )
     }
     
     function update() {
-        game.physics.arcade.overlap(bouncy, group, collisionHandler, null, this);
+        game.physics.arcade.overlap(player, group, collisionHandler, null, this);
 
         // Accelerate the 'logo' sprite towards the cursor,
         // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
         // in X or Y.
         // This function returns the rotation angle that makes it visually match its
         // new trajectory.
-        bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
+        player.rotation = game.physics.arcade.accelerateToPointer( player, game.input.activePointer, 500, 500, 500 );
     }
 
 
@@ -97,7 +97,7 @@ function make_main_game_state( game )
     return { "preload": preload, "create": create, "update": update };
 }
 
-function collisionHandler (bouncy, star) {
+function collisionHandler (player, star) {
 
     star.kill();
     starsleft -=1;
