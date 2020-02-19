@@ -122,9 +122,15 @@ window.onload = function() {
     
     var game = new Phaser.Game( 800, 600, Phaser.AUTO, 'game' );
     
-    game.state.add( "main", make_main_game_state( game ) );
-    
-    game.state.start( "main" );
+	var shared = {};
+
+	game.state.add( 'Boot', GameStates.makeBoot( game ) );
+	game.state.add( 'Preloader', GameStates.makePreloader( game ) );
+	game.state.add( 'MainMenu', GameStates.makeMainMenu( game, shared ) );
+	game.state.add( 'Game', GameStates.makeGame( game, shared ) );
+
+	//	Now start the Boot state.
+	game.state.start('Boot');
 };
 
 
