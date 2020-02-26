@@ -1,4 +1,7 @@
-"use strict";
+
+
+
+/*"use strict";
 
 window.onload = function() {
 
@@ -19,9 +22,9 @@ window.onload = function() {
 	game.state.add( 'Boot', GameStates.makeBoot( game ) );
 	game.state.add( 'Preloader', GameStates.makePreloader( game ) );
 	game.state.add( 'MainMenu', GameStates.makeMainMenu( game, shared ) );
-	game.state.add( 'Game', config);
+	game.state.add( 'Game', GameStates.makeGame( game, shared ) );
 
 	//	Now start the Boot state.
 	game.state.start('Boot');
 
-};
+};*/

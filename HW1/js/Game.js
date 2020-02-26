@@ -1,97 +1,166 @@
-class SceneA extends Phaser.Scene {
+/*var game = new Phaser.Game(800, 600, Phaser.CANVAS, 'phaser-example', { preload: preload, create: create, update: update });
 
-    constructor ()
+function preload () {
+
+    game.load.image('player', 'assets/phaser.png');
+    game.load.image('star', 'assets/cloud.png');
+    game.load.image('baddie', 'assets/evilcloud.png');
+
+}
+
+var stars;
+var baddies;
+//var lazers;
+var player;
+var cursors;
+var fireButton;
+var bulletTime = 0;
+var frameTime = 0;
+var frames;
+var prevCamX = 0;
+
+function create () {
+
+    game.world.setBounds(0, 0, 800*4, 600);
+
+    frames = Phaser.Animation.generateFrameNames('frame', 2, 30, '', 2);
+    frames.unshift('frame02');
+
+    stars = game.add.group();
+
+    for (var i = 0; i < 128; i++)
     {
-        super({ key: 'sceneA' });
+        stars.create(game.world.randomX, game.world.randomY, 'star');
     }
 
-    preload ()
+    baddies = game.add.group();
+
+    for (var i = 0; i < 16; i++)
     {
-        this.load.image('face', 'assets/pics/bw-face.png');
+        baddies.create(game.world.randomX, game.world.randomY, 'baddie');
     }
 
-    create ()
+    //lazers = game.add.group();
+
+    player = game.add.sprite(100, 300, 'player');
+    player.anchor.x = 0.5;
+
+    game.camera.follow(player, Phaser.Camera.FOLLOW_LOCKON, 0.1);
+
+    cursors = game.input.keyboard.createCursorKeys();
+    fireButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
+
+    prevCamX = game.camera.x;
+
+}
+
+function update () {
+
+    if (cursors.left.isDown)
     {
-        this.face = this.add.image(400, 300, 'face');
+        player.x -= 8;
+        player.scale.x = -1;
+    }
+    else if (cursors.right.isDown)
+    {
+        player.x += 8;
+        player.scale.x = 1;
+    }
 
-        this.input.manager.enabled = true;
+    if (cursors.up.isDown)
+    {
+        player.y -= 8;
+    }
+    else if (cursors.down.isDown)
+    {
+        player.y += 8;
+    }
 
-        this.input.once('pointerdown', function () {
+    if (fireButton.isDown)
+    {
+        fireBullet();
+    }
 
-            this.scene.start('sceneB');
+    //.forEachAlive(updateBullets, this);
 
-        }, this);
+    prevCamX = game.camera.x;
+
+}
+
+function updateBullets (lazer) {
+
+    // if (game.time.now > frameTime)
+    // {
+    //     frameTime = game.time.now + 500;
+    // }
+    // else
+    // {
+    //     return;
+    // }
+
+    //  Adjust for camera scrolling
+    var camDelta = game.camera.x - prevCamX;
+    lazer.x += camDelta;
+
+    if (lazer.animations.frameName !== 'frame30')
+    {
+        lazer.animations.next();
+    }
+    else
+    {
+        if (lazer.scale.x === 1)
+        {
+            lazer.x += 16;
+
+            if (lazer.x > (game.camera.view.right - 224))
+            {
+                lazer.kill();
+            }
+        }
+        else
+        {
+            lazer.x -= 16;
+
+            if (lazer.x < (game.camera.view.left - 224))
+            {
+                lazer.kill();
+            }
+        }
     }
 
 }
 
-class SceneB extends Phaser.Scene {
+function fireBullet () {
 
-    constructor ()
+    if (game.time.now > bulletTime)
     {
-        super({ key: 'sceneB' });
-    }
+        //  Grab the first bullet we can from the pool
+        //lazer = lazers.getFirstDead(true, player.x + 24 * player.scale.x, player.y + 8, 'lazer');
 
-    preload ()
-    {
-        this.load.image('arrow', 'assets/sprites/longarrow.png');
-    }
+        //lazer.animations.add('fire', frames, 60);
+        //lazer.animations.frameName = 'frame02';
 
-    create ()
-    {
-        this.arrow = this.add.sprite(400, 300, 'arrow').setOrigin(0, 0.5);
+        //lazer.scale.x = player.scale.x;
 
-        this.input.once('pointerdown', function (event) {
+        /*if (lazer.scale.x === 1)
+        {
+            // lazer.anchor.x = 1;
+        }
+        else
+        {
+            // lazer.anchor.x = 0;
+        }*/
 
-            this.scene.start('sceneC');
+        //  Lazers start out with a width of 96 and expand over time
+        // lazer.crop(new Phaser.Rectangle(244-96, 0, 96, 2), true);
 
-        }, this);
-    }
+        //bulletTime = game.time.now + 250;
+    //}
 
-    update ()
-    {
-        this.arrow.rotation += 0.01;
-    }
+//}
 
-}
-
-class SceneC extends Phaser.Scene {
-
-    constructor ()
-    {
-        super({ key: 'sceneC' });
-    }
-
-    preload ()
-    {
-        this.load.image('mech', 'assets/pics/titan-mech.png');
-    }
-
-    create ()
-    {
-        this.add.sprite(Phaser.Math.Between(300, 600), 300, 'mech');
-
-        this.input.once('pointerdown', function (event) {
-
-            this.scene.start('sceneA');
-
-        }, this);
-    }
-
-}
 
 var config = {
-    type: Phaser.AUTO,
-    width: 800,
-    height: 600,
-    backgroundColor: '#000000',
-    parent: 'phaser-example',
-    scene: [ SceneA, SceneB, SceneC ]
-};
-
-var game = new Phaser.Game(config);
-
-/*var config = {
     type: Phaser.WEBGL,
     width: 800,
     height: 600,
@@ -458,7 +527,7 @@ function createAliens ()
             face.vel.y *= -1;
         }
     }
-}*/ 
+}
 
 /////////////
 
