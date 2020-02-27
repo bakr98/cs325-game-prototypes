@@ -8,12 +8,13 @@ GameStates.makeGame = function( game, shared ) {
     var cat;
     game.score = 0;
     var timer;
-    var total = 5;
+    var total = 30;
     var timerText;
     var score = game.score;
     var scoreText;
     var meow1 = null;
     var meow2 = null;
+    var gametheme = null;
 
     
     function killCat(cat, pointer) {
@@ -22,7 +23,7 @@ GameStates.makeGame = function( game, shared ) {
        cats.remove(cat);
        game.score += 1;
        scoreText = scoreText.setText("Cats Caught: " + game.score);
-        meow1.play();
+       meow1.play();
 
        console.log("KILLED " + game.score);
 
@@ -36,6 +37,7 @@ GameStates.makeGame = function( game, shared ) {
             //GAME OVER SCREEN
             console.log("GAME OVER");
             total = 30;
+            gametheme.stop();
             game.state.start('EndGame', game.score);
         }
         console.log(total);
@@ -82,11 +84,13 @@ GameStates.makeGame = function( game, shared ) {
             
             // Create a sprite at the center of the screen using the 'logo' image.
             game.stage.backgroundColor = '#000';
+            gametheme = game.add.audio('gametheme');
+            //gametheme.loopFull();
             meow1 = game.add.audio('kittenmeow');
             meow2 = game.add.audio('catmeow');
             //bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'cat' );
             cats = game.add.group();
-            for (var i = 0; i < 100; i++)
+            for (var i = 0; i < 300; i++)
             {
                 cat = cats.create(game.world.randomX, game.world.randomY, 'cat');
                 cat.name = 'cat' + i;
