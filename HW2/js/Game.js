@@ -8,7 +8,7 @@ GameStates.makeGame = function( game, shared ) {
     var cat;
     game.score = 0;
     var timer;
-    var total = 5;
+    var total = 30;
     var timerText;
     var score = game.score;
     var scoreText;
@@ -19,7 +19,9 @@ GameStates.makeGame = function( game, shared ) {
     
     function killCat(cat, pointer) {
 
-
+       if(cat.name == 'catspecial'){
+           game.score += 19;
+       }
        cats.remove(cat);
        game.score += 1;
        scoreText = scoreText.setText("Cats Caught: " + game.score);
@@ -91,10 +93,22 @@ GameStates.makeGame = function( game, shared ) {
             game.add.sprite(0, 0, 'grass');
             //bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'cat' );
             cats = game.add.group();
-            for (var i = 0; i < 300; i++)
+            for (var i = 0; i < 500; i++)
             {
-                cat = cats.create(game.world.randomX, game.world.randomY+50, 'cat');
+                if(i%20 == 0){
+                    cat = cats.create(game.world.randomX, game.world.randomY+50, 'browncat');
+                }
+                else if(i%5 == 0 || i%2 == 0){
+                    cat = cats.create(game.world.randomX, game.world.randomY+50, 'yellowcat');
+                }
+                else{
+                    cat = cats.create(game.world.randomX, game.world.randomY+50, 'cat');
+                }
                 cat.name = 'cat' + i;
+                if(i%100 == 0){
+                    cat = cats.create(game.world.randomX, game.world.randomY+50, 'blackcat');
+                    cat.name = 'catspecial';
+                }
 
                 cat.inputEnabled = true;
 

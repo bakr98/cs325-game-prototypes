@@ -31,6 +31,9 @@ GameStates.makePreloader = function( game ) {
             game.load.image('button_retry', 'assets/button_retry.png');
 
             game.load.image('cat', 'assets/phaser.png');
+            game.load.image('blackcat', 'assets/blackcat.png');
+            game.load.image('browncat', 'assets/browncat.png');
+            game.load.image('yellowcat', 'assets/yellowcat.png');
 
             game.load.atlas('playButton', 'assets/play_button.png', 'assets/play_button.json');
             game.load.audio('titleMusic', ['assets/Poppers and Prosecco.mp3']);
