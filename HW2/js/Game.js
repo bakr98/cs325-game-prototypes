@@ -5,7 +5,50 @@ GameStates.makeGame = function( game, shared ) {
     var bouncy = null;
     var Cat;
     var cats;
+    var cat;
+    game.score = 0;
+    var timer;
+    var total = 5;
+    var timerText;
+    var score = game.score;
+    var scoreText;
+    var meow1 = null;
+    var meow2 = null;
+
     
+    function killCat(cat, pointer) {
+
+
+       cats.remove(cat);
+       game.score += 1;
+       scoreText = scoreText.setText("Cats Caught: " + game.score);
+        meow1.play();
+
+       console.log("KILLED " + game.score);
+
+    }
+
+    function updateCounter() {
+
+        total--;
+        timerText = timerText.setText("Time Left: " + total);
+        if(total == 0){
+            //GAME OVER SCREEN
+            console.log("GAME OVER");
+            total = 30;
+            game.state.start('EndGame', game.score);
+        }
+        console.log(total);
+
+    
+    }
+    
+    function render() {
+
+        game.debug.text('Time until event: ' + (timer.duration.toFixed(0)), 32, 32);
+        game.debug.text('Loop Count: ' + total, 32, 64);
+    
+    }
     /*function quitGame() {
 
         //  Here you should destroy anything you no longer need.
@@ -18,8 +61,8 @@ GameStates.makeGame = function( game, shared ) {
 
     function Cat(game) {
 
-        var x = game.rnd.between(100, 770);
-        var y = game.rnd.between(0, 570);
+        var x = game.rnd.between(0, 800);
+        var y = game.rnd.between(0, 600);
     
         Phaser.Sprite.call(this, game, x, y, 'cat', 17);
     
@@ -29,7 +72,8 @@ GameStates.makeGame = function( game, shared ) {
     
     Cat.prototype = Object.create(Phaser.Sprite.prototype);
     Cat.prototype.constructor = Cat;
-    
+
+
     return {
     
         create: function () {
@@ -37,14 +81,46 @@ GameStates.makeGame = function( game, shared ) {
             //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
             
             // Create a sprite at the center of the screen using the 'logo' image.
+            game.stage.backgroundColor = '#000';
+            meow1 = game.add.audio('kittenmeow');
+            meow2 = game.add.audio('catmeow');
             //bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'cat' );
             cats = game.add.group();
             for (var i = 0; i < 100; i++)
             {
-                cats.add(new Cat(game));
+                cat = cats.create(game.world.randomX, game.world.randomY, 'cat');
+                cat.name = 'cat' + i;
+
+                cat.inputEnabled = true;
+
+                cat.events.onInputDown.add(killCat, this);
                 //game.starsleft += 1;
                 //console.log("H" + game.starsleft);
             }
+
+                //  Create our Timer
+            timer = game.time.create(false);
+
+            //  Set a TimerEvent to occur after 2 seconds
+            timer.loop(1000, updateCounter, this);
+            var style = { font: "25px Verdana", fill: "#cc0000", align: "center" };
+            timerText = game.add.text(game.world.centerX, 10, "Time Left: 30", style );
+            timerText.anchor.setTo( 0.5, 0.0 );
+            scoreText = game.add.text(10, 10, "Cats Caught: 0", style );
+
+            //  Start the timer running - this is important!
+            //  It won't start automatically, allowing you to hook it to button events and the like.
+            timer.start();
+            /*for (var i = 0; i < 20; i++)
+            {
+                var tempSprite = game.add.sprite(game.world.randomX, game.world.randomY, 'cat');
+                tempSprite.inputEnabled = true;
+                //tempSprite.input.enableDrag(false, true);
+                //tempSprite.events.onInputDown.add(function(s){console.log('clicked',s.name,s.renderOrderID)});
+                tempSprite.events.onInputDown.add(killCat, this);
+            }*?
+
+
             // Anchor the sprite at its center, as opposed to its top-left corner.
             // so it will be truly centered.
             //bouncy.anchor.setTo( 0.5, 0.5 );
@@ -60,6 +136,9 @@ GameStates.makeGame = function( game, shared ) {
             var text = game.add.text( game.world.centerX, 15, "Meow.", style );
             text.anchor.setTo( 0.5, 0.0 );
             
+            /*cats.inputEnableChildren = true;
+            cats.onChildInputDown.add(killCat, this);*/
+            //cat.events.onInputDown.add( function() { killCat(cat); }, this );
             // When you click on the sprite, you go back to the MainMenu.
             //bouncy.inputEnabled = true;
             //bouncy.events.onInputDown.add( function() { quitGame(); }, this );
