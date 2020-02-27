@@ -8,13 +8,13 @@ GameStates.makeGame = function( game, shared ) {
     var cat;
     game.score = 0;
     var timer;
-    var total = 30;
+    var total = 5;
     var timerText;
     var score = game.score;
     var scoreText;
     var meow1 = null;
     var meow2 = null;
-    var gametheme = null;
+    var ingame = null;
 
     
     function killCat(cat, pointer) {
@@ -37,7 +37,7 @@ GameStates.makeGame = function( game, shared ) {
             //GAME OVER SCREEN
             console.log("GAME OVER");
             total = 30;
-            gametheme.stop();
+            ingame.stop();
             game.state.start('EndGame', game.score);
         }
         console.log(total);
@@ -84,15 +84,16 @@ GameStates.makeGame = function( game, shared ) {
             
             // Create a sprite at the center of the screen using the 'logo' image.
             game.stage.backgroundColor = '#000';
-            gametheme = game.add.audio('gametheme');
-            //gametheme.loopFull();
+            ingame = game.add.audio('ingame');
+            ingame.loopFull();
             meow1 = game.add.audio('kittenmeow');
             meow2 = game.add.audio('catmeow');
+            game.add.sprite(0, 0, 'grass');
             //bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'cat' );
             cats = game.add.group();
             for (var i = 0; i < 300; i++)
             {
-                cat = cats.create(game.world.randomX, game.world.randomY, 'cat');
+                cat = cats.create(game.world.randomX, game.world.randomY+50, 'cat');
                 cat.name = 'cat' + i;
 
                 cat.inputEnabled = true;
@@ -107,10 +108,10 @@ GameStates.makeGame = function( game, shared ) {
 
             //  Set a TimerEvent to occur after 2 seconds
             timer.loop(1000, updateCounter, this);
-            var style = { font: "25px Verdana", fill: "#cc0000", align: "center" };
-            timerText = game.add.text(game.world.centerX, 10, "Time Left: 30", style );
+            var style = { font: "25px Tahoma", fill: "#ffffff", align: "center" };
+            timerText = game.add.text(700, 10, "Time Left: 30", style );
             timerText.anchor.setTo( 0.5, 0.0 );
-            scoreText = game.add.text(10, 10, "Cats Caught: 0", style );
+            scoreText = game.add.text(20, 10, "Cats Caught: 0", style );
 
             //  Start the timer running - this is important!
             //  It won't start automatically, allowing you to hook it to button events and the like.

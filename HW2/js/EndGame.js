@@ -30,11 +30,11 @@ GameStates.makeWinState = function( game, shared ) {
             //music.play();
     
             game.add.sprite(0, 0, 'endPage');
-            var style = { font: "25px Verdana", fill: "#ffffff", align: "center" };
-            endText = game.add.text(game.world.centerX, game.world.centerY, "Score: " + game.score, style );
+            var style = { font: "60px Tahoma", fill: "#ffffff", align: "center" };
+            endText = game.add.text(game.world.centerX, game.world.centerY-30, "Score: " + game.score, style );
             endText.anchor.setTo( 0.5, 0.0 );
     
-            playButton = game.add.button( 303, 400, 'button_retry', startGame, null, 'button_retry', 'button_retry', 'button_retry');
+            playButton = game.add.button( game.world.centerX-60, game.world.centerY + 60, 'button_retry', startGame, null, 'button_retry', 'button_retry', 'button_retry');
     
         },
     
