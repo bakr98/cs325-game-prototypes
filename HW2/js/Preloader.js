@@ -38,6 +38,7 @@ GameStates.makePreloader = function( game ) {
             game.load.atlas('playButton', 'assets/play_button.png', 'assets/play_button.json');
             game.load.audio('titleMusic', ['assets/Poppers and Prosecco.mp3']);
             game.load.audio('catmeow', ['assets/meowregular1.mp3']);
+            game.load.audio('endgametheme', ['assets/gameendtheme.mp3']);
             game.load.audio('kittenmeow', ['assets/kittenmeow1.mp3']);
             game.load.audio('gametheme', ['assets/gametheme.mp3']);
             game.load.audio('ingame', ['assets/ingame.mp3']);

@@ -21,6 +21,10 @@ GameStates.makeGame = function( game, shared ) {
 
        if(cat.name == 'catspecial'){
            game.score += 19;
+           meow2.play();
+       }
+       else{
+            meow1.play();
        }
        cats.remove(cat);
        game.score += 1;
@@ -53,15 +57,6 @@ GameStates.makeGame = function( game, shared ) {
         game.debug.text('Loop Count: ' + total, 32, 64);
     
     }
-    /*function quitGame() {
-
-        //  Here you should destroy anything you no longer need.
-        //  Stop music, delete sprites, purge caches, free resources, all that good stuff.
-
-        //  Then let's go back to the main menu.
-        game.state.start('MainMenu');
-
-    }*/
 
     function Cat(game) {
 
@@ -82,16 +77,14 @@ GameStates.makeGame = function( game, shared ) {
     
         create: function () {
     
-            //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
             
-            // Create a sprite at the center of the screen using the 'logo' image.
             game.stage.backgroundColor = '#000';
             ingame = game.add.audio('ingame');
             ingame.loopFull();
             meow1 = game.add.audio('kittenmeow');
             meow2 = game.add.audio('catmeow');
             game.add.sprite(0, 0, 'grass');
-            //bouncy = game.add.sprite( game.world.centerX, game.world.centerY, 'cat' );
+
             cats = game.add.group();
             for (var i = 0; i < 500; i++)
             {
@@ -113,14 +106,12 @@ GameStates.makeGame = function( game, shared ) {
                 cat.inputEnabled = true;
 
                 cat.events.onInputDown.add(killCat, this);
-                //game.starsleft += 1;
-                //console.log("H" + game.starsleft);
+
             }
 
-                //  Create our Timer
+            //  Create our Timer
             timer = game.time.create(false);
 
-            //  Set a TimerEvent to occur after 2 seconds
             timer.loop(1000, updateCounter, this);
             var style = { font: "25px Tahoma", fill: "#ffffff", align: "center" };
             timerText = game.add.text(700, 10, "Time Left: 30", style );
@@ -130,49 +121,12 @@ GameStates.makeGame = function( game, shared ) {
             //  Start the timer running - this is important!
             //  It won't start automatically, allowing you to hook it to button events and the like.
             timer.start();
-            /*for (var i = 0; i < 20; i++)
-            {
-                var tempSprite = game.add.sprite(game.world.randomX, game.world.randomY, 'cat');
-                tempSprite.inputEnabled = true;
-                //tempSprite.input.enableDrag(false, true);
-                //tempSprite.events.onInputDown.add(function(s){console.log('clicked',s.name,s.renderOrderID)});
-                tempSprite.events.onInputDown.add(killCat, this);
-            }*?
-
-
-            // Anchor the sprite at its center, as opposed to its top-left corner.
-            // so it will be truly centered.
-            //bouncy.anchor.setTo( 0.5, 0.5 );
             
-            // Turn on the arcade physics engine for this sprite.
-            //game.physics.enable( bouncy, Phaser.Physics.ARCADE );
-            // Make it bounce off of the world bounds.
-            //bouncy.body.collideWorldBounds = true;
-            
-            // Add some text using a CSS style.
-            // Center it in X, and position its top 15 pixels from the top of the world.
-            var style = { font: "25px Verdana", fill: "#9999ff", align: "center" };
-            var text = game.add.text( game.world.centerX, 15, "Meow.", style );
-            text.anchor.setTo( 0.5, 0.0 );
-            
-            /*cats.inputEnableChildren = true;
-            cats.onChildInputDown.add(killCat, this);*/
-            //cat.events.onInputDown.add( function() { killCat(cat); }, this );
-            // When you click on the sprite, you go back to the MainMenu.
-            //bouncy.inputEnabled = true;
-            //bouncy.events.onInputDown.add( function() { quitGame(); }, this );
+    
         },
     
         update: function () {
     
-            //  Honestly, just about anything could go here. It's YOUR game after all. Eat your heart out!
-            
-            // Accelerate the 'logo' sprite towards the cursor,
-            // accelerating at 500 pixels/second and moving no faster than 500 pixels/second
-            // in X or Y.
-            // This function returns the rotation angle that makes it visually match its
-            // new trajectory.
-            //bouncy.rotation = game.physics.arcade.accelerateToPointer( bouncy, game.input.activePointer, 500, 500, 500 );
         }
     };
 };
