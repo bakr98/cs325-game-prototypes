@@ -31,8 +31,13 @@ GameStates.makePreloader = function( game ) {
             game.load.image('button_retry', 'assets/button_retry.png');
 
             game.load.image('cat', 'assets/phaser.png');
-            game.load.image('monster', 'assets/monster1111.jpg');
+            game.load.image('monster', 'assets/monster1111.png');
             game.load.image('blackcat', 'assets/blackcat.png');
+            game.load.image('cloud', 'assets/cloud.png');
+            game.load.image('enemyship', 'assets/enemyship.png');
+            game.load.image('building', 'assets/building12.png');
+            game.load.image('alienbaby', 'assets/alienbaby.png');
+            game.load.image('citybg', 'assets/citybg.jpg');
             game.load.image('browncat', 'assets/browncat.png');
             game.load.image('yellowcat', 'assets/yellowcat.png');
 
