@@ -20,7 +20,7 @@ GameStates.makeGame = function( game, shared ) {
         var lazers;
         var player;
         var cursors;
-        var weapon;
+        
         var fireButton;
         var bulletTime = 0;
         var frameTime = 0;
@@ -30,7 +30,9 @@ GameStates.makeGame = function( game, shared ) {
         var buildings;
         var singleship;
         var total = 60;
-        var NUMBER_OF_FOLLOWERS = 10;s
+        var NUMBER_OF_FOLLOWERS = 10;
+        var building;
+        var weapon;
     
         //  Adjust for camera scrolling
         var camDelta = game.camera.x - game.prevCamX;
@@ -184,6 +186,18 @@ Follower.prototype.update = function() {
         }
     
     }
+
+    function destroyBuilding(player, building){
+
+            building.kill();
+            //starsleft -=1;
+            //starsText = starsText.setText("Stars Left: " + starsleft);
+            //if(starsleft == 0){
+            //    winner = winner.setText("YOU WIN!!");
+            //};
+        
+        
+    }
     
 
 
@@ -239,12 +253,7 @@ Follower.prototype.update = function() {
                 
             }
 
-            game.buildings = game.add.group();
-        
-            for (var i = 0; i < 5; i++)
-            {
-                game.buildings.create(game.world.randomX, 200, 'building');
-            }
+           
         
             game.lazers = game.add.group();
         
@@ -267,6 +276,8 @@ Follower.prototype.update = function() {
                 );
             }
             game.weapon.trackSprite(game.player, 14, 0);
+
+
             //fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
         
             /*game.stage.backgroundColor = '#000';
