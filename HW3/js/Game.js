@@ -20,6 +20,7 @@ GameStates.makeGame = function( game, shared ) {
         var lazers;
         var player;
         var cursors;
+        var bulletsshot;
         
         var fireButton;
         var bulletTime = 0;
@@ -79,6 +80,16 @@ GameStates.makeGame = function( game, shared ) {
 
     
     }*/
+   /* function Building(game) {
+
+        var x = game.rnd.between(300,3000);
+        var y = 200;
+    
+        Phaser.Sprite.call(this, game, x, y, 'building', 17);
+    
+        game.physics.arcade.enable(this);
+    
+    };*/
 
     // Follower constructor
 var Follower = function(game, x, y, target) {
@@ -187,9 +198,10 @@ Follower.prototype.update = function() {
     
     }
 
-    function destroyBuilding(player, building){
+    function destroyBuilding(weaponbullets, building){
 
             building.kill();
+            console.log("REMOVED");
             //starsleft -=1;
             //starsText = starsText.setText("Stars Left: " + starsleft);
             //if(starsleft == 0){
@@ -217,6 +229,8 @@ Follower.prototype.update = function() {
 
             game.stars = game.add.group();
             game.weapon = game.add.weapon(30, 'alienbaby');
+            game.bulletsshot = game.weapon.bullets;
+            game.physics.arcade.enable(game.weapon);
             game.weapon.bulletKillType = Phaser.Weapon.KILL_WORLD_BOUNDS;
             game.weapon.bulletAngleOffset = 0;
             game.weapon.bulletSpeed = -200;
@@ -277,7 +291,20 @@ Follower.prototype.update = function() {
             }
             game.weapon.trackSprite(game.player, 14, 0);
 
+            game.buildings = game.add.group();
+        
+            for (var i = 0; i < 5; i++)
+            {
+                //group.add(new Building(game));
 
+                game.building = game.buildings.create(game.world.randomX, 200, 'building');
+                game.physics.arcade.enable(game.building);
+
+                //game.physics.arcade.overlap(game.building, game.weapon, destroyBuilding, null, game);
+                
+
+
+            }
             //fireButton = this.input.keyboard.addKey(Phaser.KeyCode.SPACEBAR);
         
             /*game.stage.backgroundColor = '#000';
@@ -369,6 +396,13 @@ Follower.prototype.update = function() {
         },
     
         update: function () {
+            game.physics.arcade.overlap(game.player, game.buildings, destroyBuilding, null, game);
+            game.physics.arcade.overlap(game.buildings, game.player, destroyBuilding, null, game);
+
+            game.physics.arcade.overlap(game.weaponbullets, game.buildings, destroyBuilding, null, game);
+            game.physics.arcade.collide(game.weaponbullets, game.buildings);
+
+
             if (game.cursors.left.isDown)
             {
                 game.player.x -= 8;
