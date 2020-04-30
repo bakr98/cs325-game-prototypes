@@ -1,0 +1,22 @@
+{
+  "preload": {"files": [
+    {
+      "type": "image",
+      "key": "loading",
+      "url": "assets/sprites/loading.png",
+      "normalMap": ""
+    },
+    {
+      "type": "sceneFile",
+      "key": "Preload",
+      "url": "assets/scenes/Preload.js"
+    }
+  ]},
+  "meta": {
+    "generated": "1563370061543",
+    "app": "Phaser Editor 2D - Asset Pack Editor - 2.1.3",
+    "contentType": "Phaser v3 Asset Pack",
+    "url": "https://phasereditor2d.com",
+    "version": "2"
+  }
+}

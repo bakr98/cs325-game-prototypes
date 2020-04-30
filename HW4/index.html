@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<title>Digital Assignment 6</title>
+	<script src="js/phaser.min.js"></script>
+	<!-- Boot.js must come first since it creates the BasicGame object
+	that stores all the states. -->
+	<script src="js/Boot.js"></script>
+	<script src="js/Preloader.js"></script>
+	<script src="js/MainMenu.js"></script>
+	<script src="js/EndGame.js"></script>
+	<script src="js/Game.js"></script>
+	<!-- main.js must come last since it references the other ones. -->
+	<script src="js/main.js"></script>
+
+<style>
+body
+{	
+	background-color: black;
+    color: #ffffff;
+    font-family: "Avenir", Verdana, sans-serif;
+}
+#readme
+{
+    margin-top: 10px;
+}
+</style>
+
+</head>
+<body>
+<div id="game"></div>
+<div id="readme">
+<h2>Space Time Continuum (Iteration 1)</h2>
+
+<ul>
+<li><strong>Author:</strong>	
+	Bakr Marouf
+</li>
+	
+<li><strong>Originality:</strong>
+	The X-eltors, your people's energy source have been stolen from you and spread across the universe. Journey across several galaxies and planets solving different kinds of puzzles from space puzzles in your ship to platforming puzzles like never before with a split mechanic when you land on specific planets.
+</li>
+	
+<li><strong>Technical Merit:</strong>
+For this iteration, the synchroniously moving background elements in the galaxy and a panoramic background. The area set up is meant to serve as a dynamic level select and puzzle in finding the X-eltors (count displayed at all times) as well as keeping track of your health and charge of your ship.
+</li>
+	
+<li><strong>Prototype Postmortem:</strong>
+I learned how to create a swarm of objects moving in different directions, and keeping track of various resources such as health and charge throughout scenes, I have begun to set up the platformer/maze and puzzle section of the game but this is not seen here as of yet.
+</li>
+	
+<li><strong>Prototype Assets:</strong>
+	Some of prototype assets were made from scratch while others were borrowed, some were a combination of both.
+<ul>
+<li>Game Logo Text: self-made</li>
+<li>Progress Bar: Included in template-gamestate-functional</li>
+<li>Buttons: Self Made</li>
+<li>Spaceship, self made</li>
+<li>X-eltor, self made</li>
+<li>Aliens in X02 Galaxy, edited from original in OpenGameArt <a href="https://opengameart.org/sites/default/files/1ST%20FRAME_3.PNG">Alien original</a></li>
+
+<li>Menu background (partially self-made from Google Drive Space Template)</li>
+<li>Night Game Over background: <a href="https://www.google.com/url?sa=i&url=https%3A%2F%2Fweheartit.com%2Fentry%2F316359787&psig=AOvVaw0jrGOmbzFXKykv9fWKoliU&ust=1582831216526000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCLih0vX37-cCFQAAAAAdAAAAABAb">Game Over Background</a></li>
+<li>X02 Galaxy Background: <a href="https://pbs.twimg.com/media/ECbeOgkXYAAgJ-F.png">X02 Galaxy Background</a></li>
+<li>Planets (Self Designed), some generated using a planet generator site </li>
+<li>Health and Charge Bars (partially made using PixelArtMaker.com): <a href="http://pixelartmaker.com/art/8a5cd93269b1ef8">Charge and Health Bars</a></li>
+<li> In Game Theme - Dramatic Trailer (<a href="https://filmmusic.io/song/5633-dramatic-trailer-">Rafael Krux Creative Commons License</a>). </li>
+
+</ul>
+</li>
+
+<li><strong>Prototype Closest Other Game:</strong>
+Which other game most closely resembles your game? If you are borrowing code from a Phaser Example, you must say so here. If you borrow code from elsewhere, you must say so here.
+<ul>
+<li>The main example used as a template for this game was template-gamestate-functional and the Defender Example</li>
+<li>Defender Example <a href="https://phaser.io/examples/v2/games/defender">Phaser Defender Example</a></li>
+<li>The remove from groups functionality was inspired by <a href="https://phaser.io/examples/v2/groups/remove">Remove From Group Example</a></li>
+<li>Used for reference - Fire Rate <a href="https://phaser.io/examples/v2/weapon/fire-rate">Phaser example on Fire Rate</a></li>
+<li>Used for reference - Timers <a href="https://phaser.io/examples/v2/time/custom-timer">Phaser documentation on Timers</a></li>
+<li>Used for reference - Game Mechanic Explorer <a href="https://gamemechanicexplorer.com/#homingmissiles-5">Game Mechanic Explorer - Homing Missiles</a></li>
+
+</ul>
+</li>
+
+<li><strong>High Concept:</strong>
+The X-eltors, your people's energy source have been stolen from you and spread across the universe. Journey across several galaxies and planets solving different kinds of puzzles from space puzzles in your ship to platforming puzzles like never before with a split mechanic when you land on specific planets.
+</li>
+
+<li><strong>Theme:</strong>
+	Puzzles, Action, Space
+</li>
+
+<li><strong>Mandated Variety:</strong>
+Input: Keyboard. Randomness: Some. Play Styles: Explorer, Collector. Genre: Puzzle/Platformer
+</li>
+
+<li><strong>Prototype Goal:</strong>
+This prototype was intended to setup the elements needed for the complete game to run smoothly by setting up the level select screen in a dynamic way, this will allow for the entry and exit of levels in a special/novel way in the next iteration and the addition of the platforming and puzzle portion.
+</li>
+
+<li><strong>Player Experience Goals:</strong>
+I want players to go around the galaxy and experience the game firsthand while looking for the X-eltors throughout the galaxies and landing on planets.
+</li>
+
+<li><strong>Gameplay:</strong>
+The goal of the game is to get all of the X-eltors. There’s a fixed number of these scattered throughout, and when all are caught the whole game is won! Try not to be wounded or killed by enemies that may come to the foreground on certain areas, and be mindful of your surroundings both in space and on the ground (when implemented in the next iteration). 
+</li>
+
+<li><strong>Strategies:</strong>
+Try to think of all the possible places these X-eltors may be in a level. They may be in space or on the ground, so use your access to both to your advantage.
+</li>
+
+<li><strong>Story/Setting/Premise:</strong>
+You were relaxing on your home planet when one day a mysterious alien race showed up and stole your energy source, the X-eltors, and spread across the universe by these Aliens. Journey across several galaxies and planets solving different kinds of puzzles from space puzzles in your ship to platforming puzzles like never before with a split mechanic when you land on specific planets.
+</li>
+
+<li><strong>Target Audience:</strong>
+All ages, although the game may be more popular with teenagers. Anyone who enjoys space and Sci-Fi </li>
+
+<li><strong>Play Time:</strong>
+The game itself takes as long as you may need to find all of the X-eltors scattered throughout, this involves jumping from planet to space and back to another planet so it may take a while.  You can play again if you lose or are damaged/killed.</li>
+
+</ul>
+</div>
+</body>
+</html>
